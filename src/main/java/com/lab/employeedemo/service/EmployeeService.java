@@ -32,4 +32,20 @@ public class EmployeeService {
             return null;
         }
     }
+
+    public void deleteEmployeeByID(long id) {
+        employeeRepository.deleteById(id);
+    }
+
+    public String updateName(long id, Employee employee) {
+       Optional<Employee> employeeOptional=employeeRepository.findById(id);
+       if (employeeOptional.isPresent()){
+           Employee oldEmployee=employeeOptional.get();
+           oldEmployee.setEmployeeName(employee.getEmployeeName());
+           employeeRepository.save(oldEmployee);
+           return "Successful";
+
+       }
+       return null;
+    }
 }
